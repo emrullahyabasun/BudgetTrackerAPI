@@ -20,8 +20,4 @@
     <ProjectReference Include="..\BudgetTracker.Services\BudgetTracker.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
