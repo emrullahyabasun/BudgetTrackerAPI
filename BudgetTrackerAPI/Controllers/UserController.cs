@@ -1,9 +1,6 @@
-﻿using BudgetTracker.DataAccessLayer;
-using BudgetTracker.Entities;
+﻿using BudgetTracker.Common.DTOs;
 using BudgetTracker.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BudgetTrackerAPI.Controllers
 {
@@ -38,11 +35,12 @@ namespace BudgetTrackerAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddUser(User user)
+        public async Task<IActionResult> AddUser(UserCreateDto userDto)
         {
-            await _userService.AddUserAsync(user);
-            return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
+            await _userService.AddUserAsync(userDto);
+            return CreatedAtAction(nameof(AddUser), new { username = userDto.Username }, userDto);
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, User user)

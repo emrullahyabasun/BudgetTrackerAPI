@@ -1,5 +1,8 @@
 ﻿using BudgetTracker.Business;
+using BudgetTracker.Common;
+using BudgetTracker.Common.DTOs;
 using BudgetTracker.Entities;
+using BudgetTrackerAPI.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +31,18 @@ namespace BudgetTracker.Services
             return await _userManager.GetUserByIdAsync(id);
         }
 
-        public async Task AddUserAsync(User user)
+        public async Task AddUserAsync(UserCreateDto userDto)
         {
+            var user = new User
+            {
+                Username = userDto.Username,
+                PasswordHash = PasswordHasher.HashPassword(userDto.Password),
+                Email = userDto.Email,
+                Name = userDto.Name,
+                Lastname = userDto.Lastname,
+                InsertTime = DateTime.Now,
+
+            };
             await _userManager.AddUserAsync(user);
         }
 

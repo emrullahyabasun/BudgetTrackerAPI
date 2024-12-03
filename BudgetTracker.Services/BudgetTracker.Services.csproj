@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BudgetTracker.Business\BudgetTracker.Business.csproj" />
+    <ProjectReference Include="..\BudgetTracker.Common\BudgetTracker.Common.csproj" />
     <ProjectReference Include="..\BudgetTracker.Entities\BudgetTracker.Entities.csproj" />
   </ItemGroup>
 
