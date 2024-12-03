@@ -1,4 +1,5 @@
 ﻿using BudgetTracker.Common.DTOs;
+using BudgetTracker.Entities;
 using BudgetTracker.Services;
 using Microsoft.AspNetCore.Mvc;
 
