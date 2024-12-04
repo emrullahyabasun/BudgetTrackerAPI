@@ -1,4 +1,6 @@
+using BudgetTracker.Business;
 using BudgetTracker.DataAccessLayer;
+using BudgetTracker.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,11 +9,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<BudgetTrackerContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BudgetTrackerDB")));
+
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<UserManager>();
+builder.Services.AddScoped<UserService>();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+
 
 var app = builder.Build();
 
