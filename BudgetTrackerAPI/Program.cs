@@ -14,7 +14,7 @@ builder.Services.AddDbContext<BudgetTrackerContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BudgetTrackerDB")));
 
 builder.Services.AddScoped<UserRepository>();
-builder.Services.AddScoped<UserManager>();
+builder.Services.AddScoped<UserBusiness>();
 builder.Services.AddScoped<UserService>();
 
 builder.Services.AddEndpointsApiExplorer();

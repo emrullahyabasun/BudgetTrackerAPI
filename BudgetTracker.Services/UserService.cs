@@ -12,22 +12,22 @@ namespace BudgetTracker.Services
 {
     public class UserService
     {
-        private readonly UserManager _userManager;
+        private readonly UserBusiness _userBusiness;
 
-        public UserService(UserManager userManager)
+        public UserService(UserBusiness userBusiness)
         {
-            _userManager = userManager;
+            _userBusiness = userBusiness;
         }
 
         public async Task<List<User>> GetAllUsersAsync()
         {
             // Kullanıcıları iş mantığını kullanarak getiren bir servis metodu
-            return await _userManager.GetAllUsersAsync();
+            return await _userBusiness.GetAllUsersAsync();
         }
 
         public async Task<User> GetUserByIdAsync(int id)
         {
-            return await _userManager.GetUserByIdAsync(id);
+            return await _userBusiness.GetUserByIdAsync(id);
         }
 
         public async Task AddUserAsync(UserCreateDto userDto)
@@ -42,17 +42,17 @@ namespace BudgetTracker.Services
                 InsertTime = DateTime.Now,
 
             };
-            await _userManager.AddUserAsync(user);
+            await _userBusiness.AddUserAsync(user);
         }
 
         public async Task UpdateUserAsync(User user)
         {
-            await _userManager.UpdateUserAsync(user);
+            await _userBusiness.UpdateUserAsync(user);
         }
 
         public async Task DeleteUserAsync(int id)
         {
-            await _userManager.DeleteUserAsync(id);
+            await _userBusiness.DeleteUserAsync(id);
         }
     }
 }

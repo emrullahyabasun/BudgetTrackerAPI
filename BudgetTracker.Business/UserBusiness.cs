@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace BudgetTracker.Business
 {
-    public class UserManager
+    public class UserBusiness
     {
         private readonly UserRepository _userRepository;
 
-        public UserManager(UserRepository userRepository)
+        public UserBusiness(UserRepository userRepository)
         {
             _userRepository = userRepository;
         }
