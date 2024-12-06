@@ -40,6 +40,7 @@ namespace BudgetTracker.DataAccessLayer.Abstract
         }
         #endregion
 
+        #region Save-Update-Delete-Add Methods
 
         public async Task<AppReturn> AddAsync(T entity)
         {
@@ -98,8 +99,9 @@ namespace BudgetTracker.DataAccessLayer.Abstract
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
-        }
+        } 
+        #endregion
 
-       
+
     }
 }

@@ -15,7 +15,8 @@ namespace BudgetTracker.DataAccessLayer.Interface
         Task<T> GetByIdAsync(int id);
         Task<T> GetEntitiyByFilter(Func<T, bool> predicate);
         #endregion
-        #region Save - Update - Delete Service Repository
+
+        #region Update - Delete Service Repository
         Task<AppReturn> AddAllAsync(IEnumerable<T> entities);
         Task<AppReturn> AddAsync(T entity);
         AppReturn Update(T entity);
