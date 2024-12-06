@@ -21,7 +21,6 @@ namespace BudgetTracker.Services
 
         public async Task<List<User>> GetAllUsersAsync()
         {
-            // Kullanıcıları iş mantığını kullanarak getiren bir servis metodu
             return await _userBusiness.GetAllUsersAsync();
         }
 

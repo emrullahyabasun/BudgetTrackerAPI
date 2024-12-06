@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BudgetTracker.DataAccessLayer.Abstract
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
-    {
+    {//temel crud işlemleri için hazırlanan mantık.generic türde.
         private readonly BudgetTrackerContext _context;
         private readonly DbSet<T> _dbSet;
 
