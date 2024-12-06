@@ -10,6 +10,7 @@ namespace BudgetTracker.DataAccessLayer
 {
     public class UserRepository
     {
+        //User tablosu için olan basic crud işlemleri generic repositoryden alınacak. Farklı işlevler eklendiğinde buraya esktra metotlar yazılacak.
         private readonly BudgetTrackerContext _context;
 
         public UserRepository(BudgetTrackerContext context)
