@@ -36,7 +36,9 @@ namespace BudgetTracker.DataAccessLayer.Abstract
         {
             //ToHashSet debug edilecek
             T query = _dbSet.ToHashSet<T>().Where(predicate).FirstOrDefault();
-            return Task.FromResult<T>(query);
+            //predicate fonksiyonu ile where koşulu sağlanan ilk elemanı döndürüyoruz.
+            //predicate nedir = https://stackoverflow.com/questions/1710301/what-is-a-predicate-in-c
+            return Task.FromResult<T>(query);   
         }
         #endregion
 
