@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /BudgetTrackerAPI/appsettings.json
 /BudgetTracker.DataAccessLayer/Migrations
+/BudgetTrackerAPI/appsettings.Development.json
