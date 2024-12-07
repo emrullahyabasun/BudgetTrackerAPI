@@ -1,5 +1,4 @@
 ﻿using BudgetTracker.Common.DTOs;
-using BudgetTracker.Entities;
 using BudgetTracker.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,7 +42,7 @@ namespace BudgetTrackerAPI.Controllers
         }
 
 
-        [HttpPut("{id}")]   
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UserUpdateDTO userDto)
         {
             if (id != userDto.Id)

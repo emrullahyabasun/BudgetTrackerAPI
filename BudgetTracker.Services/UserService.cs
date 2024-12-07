@@ -3,11 +3,6 @@ using BudgetTracker.Common;
 using BudgetTracker.Common.DTOs;
 using BudgetTracker.DataAccessLayer.Helper;
 using BudgetTracker.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BudgetTracker.Services
 {
@@ -68,7 +63,7 @@ namespace BudgetTracker.Services
         public async Task DeleteUserAsync(int id)
         {
             await _userBusiness.DeleteUserAsync(id);
-        } 
+        }
         #endregion
     }
 }
