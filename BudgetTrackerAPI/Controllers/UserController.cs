@@ -36,22 +36,31 @@ namespace BudgetTrackerAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddUser(UserCreateDto userDto)
+        public async Task<IActionResult> AddUser(UserCreateDTO userDto)
         {
             await _userService.AddUserAsync(userDto);
             return CreatedAtAction(nameof(AddUser), new { username = userDto.Username }, userDto);
         }
 
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, User user)
+        [HttpPut("{id}")]   
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserUpdateDTO userDto)
         {
-            if (id != user.Id)
+            if (id != userDto.Id)
             {
-                return BadRequest();
+                return BadRequest("ID uyuşmazlığı: Kullanıcı güncellenemedi.");
             }
-            await _userService.UpdateUserAsync(user);
-            return NoContent();
+            // Servisten güncelleme işlemi
+            var result = await _userService.UpdateUserAsync(userDto);
+
+            if (result.IsSuccess)
+            {
+                return Ok(new { Message = result.Message });
+            }
+
+            return BadRequest(new { Message = result.Message });
+
+
         }
 
         [HttpDelete("{id}")]
