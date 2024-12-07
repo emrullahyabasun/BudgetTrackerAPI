@@ -8,7 +8,6 @@ namespace BudgetTracker.DataAccessLayer.Helper
 {
     public class AppReturn
     {
-        //Constructor örneği olması açısından yapıldı
         public AppReturn()
         {
 

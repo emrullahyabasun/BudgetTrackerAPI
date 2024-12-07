@@ -1,52 +1,79 @@
-﻿using BudgetTracker.DataAccessLayer;
+﻿using BudgetTracker.DataAccessLayer.Helper;
+using BudgetTracker.DataAccessLayer.Interface;
 using BudgetTracker.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BudgetTracker.Business
 {
     public class UserBusiness
     {
-        private readonly UserRepository _userRepository;
+        private readonly IGenericRepository<User> _userRepository;
 
-        public UserBusiness(UserRepository userRepository)
+        public UserBusiness(IGenericRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }
 
+        #region Get Methods
+
         public async Task<List<User>> GetAllUsersAsync()
         {
-            // İş mantığı burada uygulanabilir. Örneğin verileri filtrelemek veya dönüştürmek.
-            return await _userRepository.GetAllUsersAsync();
+            var users = await _userRepository.GetAllAsync();
+            return users.ToList();
         }
 
         public async Task<User> GetUserByIdAsync(int id)
         {
-            return await _userRepository.GetUserByIdAsync(id);
+            return await _userRepository.GetByIdAsync(id);
         }
 
-        public async Task AddUserAsync(User user)
+        #endregion
+        #region Add-Update-Delete
+
+        public async Task<AppReturn> AddUserAsync(User user)
         {
-            // Eklemek istediğimiz kullanıcıya belirli iş kuralları uygulayabiliriz.
-            if (string.IsNullOrEmpty(user.Username))
+            if (string.IsNullOrWhiteSpace(user.Name))
             {
-                throw new ArgumentException("Kullanıcı adı boş olamaz");
+                return new AppReturn(false, "Kullanıcı adı boş olamaz.");
             }
 
-            await _userRepository.AddUserAsync(user);
+            var result = await _userRepository.AddAsync(user);
+            if (result.IsSuccess)
+            {
+                await _userRepository.SaveChangesAsync();
+            }
+
+            return result;
         }
 
-        public async Task UpdateUserAsync(User user)
+        public async Task<AppReturn> UpdateUserAsync(User user)
         {
-            await _userRepository.UpdateUserAsync(user);
+            var existingUser = await _userRepository.GetByIdAsync(user.Id);
+            if (existingUser == null)
+            {
+                return new AppReturn(false, "Kullanıcı bulunamadı.");
+            }
+            var result = _userRepository.Update(user);
+            if (result.IsSuccess)
+            {
+                await _userRepository.SaveChangesAsync();
+            }
+            return result;
         }
 
-        public async Task DeleteUserAsync(int id)
+        public async Task<AppReturn> DeleteUserAsync(int id)
         {
-            await _userRepository.DeleteUserAsync(id);
+            var user = await _userRepository.GetByIdAsync(id);
+            if (user == null)
+            {
+                return new AppReturn(false, "Kullanıcı bulunamadı.");
+            }
+            var result = _userRepository.Delete(user);
+            if (result.IsSuccess)
+            {
+                await _userRepository.SaveChangesAsync();
+            }
+            return result;
         }
+        #endregion
     }
 }
