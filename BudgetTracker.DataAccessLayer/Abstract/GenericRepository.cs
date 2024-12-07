@@ -42,15 +42,16 @@ namespace BudgetTracker.DataAccessLayer.Abstract
         //SORUNLU.
         public async Task<AppReturn> AddAsync(T entity)
         {
-            //string kelimeler bir yerde toplanacak
             try
             {
                 //debug da bakılacak e den dönen id değeri constructor ın ıd değerine set edilecek
-                var e = await _dbSet.AddAsync(entity);
+                //e den id henüz dönmüyor çünkü dbye kayıt etmedik henüz.
+                var e = await _dbSet.AddAsync(entity); //belleğe ekleme yapar yalnızca. dbye değil.
                 return await Task.FromResult<AppReturn>(new AppReturn(true, "Kayit Başarili"));
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Hata: {ex.InnerException?.Message ?? ex.Message}");
                 return await Task.FromResult<AppReturn>(new AppReturn(false, $"Kayit Sırasında Hata oluştu: Hata mesajı: {ex.InnerException?.Message ?? ex.Message}"));
             }
         }

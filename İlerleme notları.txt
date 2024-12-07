@@ -1,0 +1,1 @@
+DB' kayıt işlemlerinin GenericRepository'de mi yoksa Businnesta mı yapılması daha uygun olur karar verilecek ve SaveChangesAsync implementasyonu buna göre yapılacak.

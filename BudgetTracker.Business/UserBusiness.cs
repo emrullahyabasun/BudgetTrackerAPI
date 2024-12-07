@@ -28,7 +28,6 @@ namespace BudgetTracker.Business
 
         #endregion
         #region Add-Update-Delete
-
         public async Task<AppReturn> AddUserAsync(User user)
         {
             if (string.IsNullOrWhiteSpace(user.Name))
@@ -40,6 +39,7 @@ namespace BudgetTracker.Business
             if (result.IsSuccess)
             {
                 await _userRepository.SaveChangesAsync();
+                result.Message = "Kullanıcı başarıyla eklendi.";
             }
 
             return result;
@@ -56,6 +56,7 @@ namespace BudgetTracker.Business
             if (result.IsSuccess)
             {
                 await _userRepository.SaveChangesAsync();
+                result.Message = "Kullanıcı başarıyla güncellendi.";
             }
             return result;
         }
