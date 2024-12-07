@@ -1,11 +1,6 @@
 ﻿using BudgetTracker.DataAccessLayer.Helper;
 using BudgetTracker.DataAccessLayer.Interface;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BudgetTracker.DataAccessLayer.Abstract
 {
@@ -38,12 +33,13 @@ namespace BudgetTracker.DataAccessLayer.Abstract
             T query = _dbSet.ToHashSet<T>().Where(predicate).FirstOrDefault();
             //predicate fonksiyonu ile where koşulu sağlanan ilk elemanı döndürüyoruz.
             //predicate nedir = https://stackoverflow.com/questions/1710301/what-is-a-predicate-in-c
-            return Task.FromResult<T>(query);   
+            return Task.FromResult<T>(query);
         }
         #endregion
 
         #region Save-Update-Delete-Add Methods
 
+        //SORUNLU.
         public async Task<AppReturn> AddAsync(T entity)
         {
             //string kelimeler bir yerde toplanacak
@@ -101,7 +97,7 @@ namespace BudgetTracker.DataAccessLayer.Abstract
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
-        } 
+        }
         #endregion
 
 
