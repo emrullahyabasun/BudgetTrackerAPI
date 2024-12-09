@@ -52,6 +52,8 @@ namespace BudgetTracker.DataAccessLayer.Abstract
             catch (Exception ex)
             {
                 Console.WriteLine($"Hata: {ex.InnerException?.Message ?? ex.Message}");
+                //fromresult ne işe yarıyor tekrardan task olarak döndürmemizin anlamı ne burada?
+
                 return await Task.FromResult<AppReturn>(new AppReturn(false, $"Kayit Sırasında Hata oluştu: Hata mesajı: {ex.InnerException?.Message ?? ex.Message}"));
             }
         }
