@@ -29,7 +29,7 @@ namespace BudgetTracker.DataAccessLayer.Abstract
 
         public Task<T> GetEntitiyByFilter(Func<T, bool> predicate)
         {
-            //ToHashSet debug edilecek
+            //ToHashSet debug edilecek belki yerine T query = _dbSet.AsEnumerable().FirstOrDefault(predicate); yazılabilir.
             T query = _dbSet.ToHashSet<T>().Where(predicate).FirstOrDefault();
             //predicate fonksiyonu ile where koşulu sağlanan ilk elemanı döndürüyoruz.
             //predicate nedir = https://stackoverflow.com/questions/1710301/what-is-a-predicate-in-c
@@ -44,17 +44,15 @@ namespace BudgetTracker.DataAccessLayer.Abstract
         {
             try
             {
-                //debug da bakılacak e den dönen id değeri constructor ın ıd değerine set edilecek
-                //e den id henüz dönmüyor çünkü dbye kayıt etmedik henüz.
-                var e = await _dbSet.AddAsync(entity); //belleğe ekleme yapar yalnızca. dbye değil.
-                return await Task.FromResult<AppReturn>(new AppReturn(true, "Kayit Başarili"));
+                await _dbSet.AddAsync(entity); // Belleğe ekleme
+                return new AppReturn(true, "Kayıt belleğe başarıyla eklendi.");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Hata: {ex.InnerException?.Message ?? ex.Message}");
                 //fromresult ne işe yarıyor tekrardan task olarak döndürmemizin anlamı ne burada?
 
-                return await Task.FromResult<AppReturn>(new AppReturn(false, $"Kayit Sırasında Hata oluştu: Hata mesajı: {ex.InnerException?.Message ?? ex.Message}"));
+                return new AppReturn(false, $"Belleğe ekleme hatası: {ex.InnerException?.Message ?? ex.Message}");
             }
         }
 
@@ -64,11 +62,11 @@ namespace BudgetTracker.DataAccessLayer.Abstract
             {
                 await _dbSet.AddRangeAsync(entities);
 
-                return await Task.FromResult<AppReturn>(new AppReturn(true, "Kayit Başarili"));
+                return new AppReturn(true, "Kayıtlar belleğe başarıyla eklendi.");
             }
             catch (Exception ex)
             {
-                return await Task.FromResult<AppReturn>(new AppReturn(false, $"Kayit Sırasında Hata oluştu: Hata mesajı: {ex.InnerException?.Message ?? ex.Message}"));
+                return new AppReturn(false, $"Belleğe toplu ekleme hatası: {ex.InnerException?.Message ?? ex.Message}");
             }
         }
         public AppReturn Update(T entity)
@@ -80,7 +78,7 @@ namespace BudgetTracker.DataAccessLayer.Abstract
             }
             catch (Exception ex)
             {
-                return new AppReturn(false, $"Kayit Sırasında Hata oluştu: Hata mesajı: {ex.InnerException?.Message ?? ex.Message}");
+                return new AppReturn(false, $"Güncelleme hatası: {ex.InnerException?.Message ?? ex.Message}");
             }
         }
 
@@ -90,16 +88,24 @@ namespace BudgetTracker.DataAccessLayer.Abstract
             try
             {
                 _dbSet.Remove(entity);
-                return new AppReturn(true, "Kayit Başarili");
+                return new AppReturn(true, "Kayıt bellekte başarıyla silindi.");
             }
             catch (Exception ex)
             {
-                return new AppReturn(false, $"Kayit Sırasında Hata oluştu: Hata mesajı: {ex.InnerException?.Message ?? ex.Message}");
+                return new AppReturn(false, $"Silme hatası: {ex.InnerException?.Message ?? ex.Message}");
             }
         }
-        public async Task SaveChangesAsync()
+        public async Task<AppReturn> SaveChangesAsync()
         {
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+                return new AppReturn(true, "Değişiklikler başarıyla kaydedildi.");
+            }
+            catch (Exception ex)
+            {
+                return new AppReturn(false, $"Veritabanı kaydı sırasında hata oluştu: {ex.InnerException?.Message ?? ex.Message}");
+            }
         }
         #endregion
 

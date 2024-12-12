@@ -14,8 +14,7 @@ namespace BudgetTracker.Entities
         public string Email { get; set; }
         public string Name { get; set; }
         public string Lastname { get; set; }
-        public ICollection<Income> Incomes { get; set; } = new List<Income>();
-        public ICollection<Expense> Expenses { get; set; } = new List<Expense>();
+        public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
         public ICollection<Category> Categories { get; set; } = new List<Category>();
     }
 }
