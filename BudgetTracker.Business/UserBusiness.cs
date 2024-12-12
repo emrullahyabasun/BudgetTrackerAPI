@@ -35,14 +35,11 @@ namespace BudgetTracker.Business
                 return new AppReturn(false, "Kullanıcı adı boş olamaz.");
             }
 
-            var result = await _userRepository.AddAsync(user);
-            if (result.IsSuccess)
-            {
-                await _userRepository.SaveChangesAsync();
-                result.Message = "Kullanıcı başarıyla eklendi.";
-            }
+            var result = await _userRepository.AddAsync(user); //belleğe eklenir.
+            if (!result.IsSuccess)
+                return result;
 
-            return result;
+            return await _userRepository.SaveChangesAsync();
         }
 
         public async Task<AppReturn> UpdateUserAsync(User user)
@@ -53,12 +50,10 @@ namespace BudgetTracker.Business
                 return new AppReturn(false, "Kullanıcı bulunamadı.");
             }
             var result = _userRepository.Update(user);
-            if (result.IsSuccess)
-            {
-                await _userRepository.SaveChangesAsync();
-                result.Message = "Kullanıcı başarıyla güncellendi.";
-            }
-            return result;
+            if (!result.IsSuccess) 
+                return result;
+            return await _userRepository.SaveChangesAsync();
+          
         }
 
         public async Task<AppReturn> DeleteUserAsync(int id)
@@ -69,11 +64,9 @@ namespace BudgetTracker.Business
                 return new AppReturn(false, "Kullanıcı bulunamadı.");
             }
             var result = _userRepository.Delete(user);
-            if (result.IsSuccess)
-            {
-                await _userRepository.SaveChangesAsync();
-            }
-            return result;
+            if (!result.IsSuccess)
+                return result;
+            return await _userRepository.SaveChangesAsync();
         }
         #endregion
     }

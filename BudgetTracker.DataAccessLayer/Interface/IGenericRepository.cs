@@ -19,7 +19,7 @@ namespace BudgetTracker.DataAccessLayer.Interface
         #endregion
 
         #region SaveChanges
-        Task SaveChangesAsync();
+        Task<AppReturn> SaveChangesAsync();
         #endregion
 
 
