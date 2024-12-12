@@ -14,7 +14,6 @@ namespace BudgetTracker.Entities
         public int Type { get; set; } // 1: Gelir, 2: Gider
 
         public User User { get; set; }
-        public ICollection<Income> Incomes { get; set; } = new List<Income>();
-        public ICollection<Expense> Expenses { get; set; } = new List<Expense>();
+        public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
     }
 }
