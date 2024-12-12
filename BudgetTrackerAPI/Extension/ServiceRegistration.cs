@@ -16,14 +16,18 @@ namespace BudgetTrackerAPI.Extension
             // Özel Repositoriler
             services.AddScoped<UserRepository>();
             services.AddScoped<CategoryRepository>();
+            services.AddScoped<TransactionRepository>();
 
             // Business 
             services.AddScoped<UserBusiness>();
             services.AddScoped<CategoryBusiness>();
+            services.AddScoped<TransactionBusiness>();
 
             // Service 
             services.AddScoped<UserService>();
             services.AddScoped<CategoryService>();
+            services.AddScoped<TransactionService>();
+
             return services;
         }
     }

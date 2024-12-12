@@ -1,4 +1,5 @@
-﻿using BudgetTracker.DataAccessLayer.Helper;
+﻿using BudgetTracker.DataAccessLayer;
+using BudgetTracker.DataAccessLayer.Helper;
 using BudgetTracker.DataAccessLayer.Interface;
 using BudgetTracker.Entities;
 
@@ -36,10 +37,13 @@ namespace BudgetTracker.Business
             }
 
             var result = await _userRepository.AddAsync(user); //belleğe eklenir.
-            if (!result.IsSuccess)
-                return result;
+            if (result.IsSuccess)
+            {
+                await _userRepository.SaveChangesAsync();
+                result.Message = "Kullanıcı başarıyla eklendi.";
+            }
 
-            return await _userRepository.SaveChangesAsync();
+            return result;
         }
 
         public async Task<AppReturn> UpdateUserAsync(User user)
