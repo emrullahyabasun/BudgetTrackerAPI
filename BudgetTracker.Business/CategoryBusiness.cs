@@ -5,7 +5,5 @@ namespace BudgetTracker.Business
 {
     public class CategoryBusiness
     {
-
-       
     }
 }
