@@ -1,1 +1,2 @@
-DB' kayıt işlemlerinin GenericRepository'de mi yoksa Businnesta mı yapılması daha uygun olur karar verilecek ve SaveChangesAsync implementasyonu buna göre yapılacak.
+DB' kayıt işlemlerinin GenericRepository'de mi yoksa Businessta mı yapılması daha uygun olur karar verilecek ve SaveChangesAsync implementasyonu buna göre yapılacak. + Business'a taşındı.
+Income ve Expense tabloları yerine bir tane Transaction tablosuna geçildi. Ayrıca yinelenebilir işlemler için field kurgusu yapıldı. Transaction Business yazıldı.
