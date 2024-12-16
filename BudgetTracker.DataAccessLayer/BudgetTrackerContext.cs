@@ -38,6 +38,11 @@ namespace BudgetTracker.DataAccessLayer
                 .WithMany(p => p.Transactions) 
                 .HasForeignKey(t => t.PaymentMethodId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Transaction - Amount: Precision ve Scale ayarı
+            modelBuilder.Entity<Transaction>()
+                .Property(t => t.Amount)
+                .HasPrecision(18, 2); // 18 basamak, 2 ondalık basamak
         }
     }
 }
