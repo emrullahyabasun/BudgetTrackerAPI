@@ -21,7 +21,7 @@ namespace BudgetTracker.DataAccessLayer
             // Transaction - User: One-to-Many
             modelBuilder.Entity<Transaction>()
                 .HasOne(t => t.User)
-                .WithMany(u => u.Transactions) 
+                .WithMany(u => u.Transactions)
                 .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -35,7 +35,7 @@ namespace BudgetTracker.DataAccessLayer
             // Transaction - PaymentMethod: One-to-Many
             modelBuilder.Entity<Transaction>()
                 .HasOne(t => t.PaymentMethod)
-                .WithMany(p => p.Transactions) 
+                .WithMany(p => p.Transactions)
                 .HasForeignKey(t => t.PaymentMethodId)
                 .OnDelete(DeleteBehavior.Restrict);
 
