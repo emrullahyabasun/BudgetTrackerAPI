@@ -7,7 +7,5 @@ namespace BudgetTracker.DataAccessLayer
     public class UserRepository : GenericRepository<User>
     {
         public UserRepository(BudgetTrackerContext context) : base(context) { }
-        //test
-
     }
 }
